@@ -3,9 +3,11 @@ package com.mapcalculator.geomaptools.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.DecimalFormat;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DistanceCalculatorTest {
+class DistanceCalculatorTest {
 
     private DistanceCalculator distanceCalculator;
 
@@ -29,7 +31,8 @@ public class DistanceCalculatorTest {
 
     @Test
     void testDistanceCalculator(){
+        DecimalFormat df = new DecimalFormat("###.####");
         double calculated = distanceCalculator.calculate(latitude, longitude, latitude2, longitude2);
-        assertThat(calculated).isEqualTo(distance);
+        assertThat(df.format(calculated)).isEqualTo(df.format(distance));
     }
 }

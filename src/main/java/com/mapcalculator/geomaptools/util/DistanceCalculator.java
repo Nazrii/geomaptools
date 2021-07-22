@@ -17,19 +17,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class DistanceCalculator {
 
-    private final static double EARTH_RADIUS = 6371; // radius in kilometers
+    private static final double EARTH_RADIUS = 6371; // radius in kilometers
 
     /**
      * Calculate the following param to retrieve distance using Haversin formula
      * See Wikipedia
      *
-     * @param latitude
-     * @param longitude
-     * @param latitude2
-     * @param longitude2
-     * @return
+     * @param latitude for the first postcode
+     * @param longitude for the first postcode
+     * @param latitude2 for the second postcode
+     * @param longitude2 for the second postcode
+     * @return distance
      */
-    public static double calculate(double latitude, double longitude, double latitude2, double longitude2) {
+    public double calculate(double latitude, double longitude, double latitude2, double longitude2) {
         double lon1Radians = Math.toRadians(longitude);
         double lon2Radians = Math.toRadians(longitude2);
         double lat1Radians = Math.toRadians(latitude);
@@ -39,11 +39,11 @@ public class DistanceCalculator {
         return (EARTH_RADIUS * c);
     }
 
-    private static double haversine(double deg1, double deg2) {
+    private double haversine(double deg1, double deg2) {
         return square(Math.sin((deg1 - deg2) / 2.0));
     }
 
-    private static double square(double x) {
+    private double square(double x) {
         return x * x;
     }
 }

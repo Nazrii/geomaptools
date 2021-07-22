@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @WithMockUser(setupBefore = TestExecutionEvent.TEST_EXECUTION)
-public class PostcodeManagerControllerTest {
+class PostcodeManagerControllerTest {
 
     private static final String getPostcodeJson = "{ \"postcode\": \"AB10 1XG\"}";
     private static final String updatePostcodeJson = "{ \"old_postcode\": \"AB10aaa\", \"new_postcode\" : \"AB10 1XG\"}";
@@ -40,7 +40,7 @@ public class PostcodeManagerControllerTest {
     @Test
     @DisplayName("getPostcodeById success")
     void getPostcodeById_Success() throws Exception {
-        Long id = 1l;
+        Long id = 1L;
 
         PostcodeManagerResponse response = new PostcodeManagerResponse();
         response.setId(id);
@@ -58,11 +58,11 @@ public class PostcodeManagerControllerTest {
     @Test
     @DisplayName("getPostcodeById fail not found due to illegal state exception")
     void getPostcodeById_IllegalStateException_NotFound() throws Exception {
-        Long id = 1l;
+        Long id = 1L;
         when(postcodeManagerService.getPostCodeById(id)).thenThrow(new IllegalStateException());
 
         mockMvc.perform(
-                get(String.format("/postcode/id/",id))
+                get(String.format("/postcode/id/%s",id))
         ).andExpect(status().isNotFound());
     }
 

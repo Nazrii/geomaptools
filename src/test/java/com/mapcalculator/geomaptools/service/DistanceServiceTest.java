@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(value = DistanceService.class)
-public class DistanceServiceTest {
+class DistanceServiceTest {
 
     @Autowired
     private MockMvc mockMvc;

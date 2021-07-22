@@ -33,8 +33,8 @@ public class DistanceService {
      * Calculate the distance
      * Set response detail
      *
-     * @param request
-     * @return
+     * @param request object consists from_postcode and to_postcode
+     * @return object DistanceResponse
      */
     public DistanceResponse getDistance(DistanceRequest request) {
         DistanceResponse response = new DistanceResponse();

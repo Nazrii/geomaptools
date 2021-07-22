@@ -10,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * This service contains the logic to manage the postcode details in database
  */
 @Service
 public class PostcodeManagerService {
+
+    private static final String DATA_NOT_EXIST_EXCEPTION = "Sorry, %s is not on our system at the current time";
 
     private final PostcodeManagerRepository postCodeManagerRepository;
 
@@ -28,12 +29,12 @@ public class PostcodeManagerService {
     /**
      * Get postcode details via id
      *
-     * @param id
-     * @return
+     * @param id of the postcode detail
+     * @return PostcodeManagerResponse object
      */
     public PostcodeManagerResponse getPostCodeById(Long id) {
         Optional<PostCodeLatLng> optPostCodeLatLng = postCodeManagerRepository.findById(id);
-        PostCodeLatLng postCodeLatLng = optPostCodeLatLng.orElseThrow(() -> new IllegalStateException(String.format("Sorry, %s is not on our system at the current time", id)));
+        PostCodeLatLng postCodeLatLng = optPostCodeLatLng.orElseThrow(() -> new IllegalStateException(String.format(DATA_NOT_EXIST_EXCEPTION, id)));
 
         PostcodeManagerResponse response = new PostcodeManagerResponse();
         response.setId(postCodeLatLng.getId());
@@ -47,13 +48,13 @@ public class PostcodeManagerService {
     /**
      * Get the postcode details consisting id, latitude and longitude
      *
-     * @param postcode
-     * @return
+     * @param postcode string
+     * @return PostcodeManagerResponse object
      */
     public PostcodeManagerResponse getPostCodeDetail(String postcode) {
         PostCodeLatLng postCodeLatLng = postCodeManagerRepository.findByPostcode(postcode);
         if (postCodeLatLng == null) {
-            throw new IllegalStateException(String.format("Sorry, %s is not on our system at the current time", postcode));
+            throw new IllegalStateException(String.format(DATA_NOT_EXIST_EXCEPTION, postcode));
         }
 
         PostcodeManagerResponse response = new PostcodeManagerResponse();
@@ -68,7 +69,7 @@ public class PostcodeManagerService {
     /**
      * Update the postcode to a new postcode
      *
-     * @param request
+     * @param request PostcodeUpdateRequest object
      */
     public void updatePostCode(PostcodeUpdateRequest request) {
         if (StringUtils.isEmpty(request.getOldPostcode()) || StringUtils.isEmpty(request.getNewPostcode())) {
@@ -77,7 +78,7 @@ public class PostcodeManagerService {
 
         PostCodeLatLng postCodeLatLng = postCodeManagerRepository.findByPostcode(request.getOldPostcode());
         if (postCodeLatLng == null) {
-            throw new IllegalStateException(String.format("Sorry, %s is not on our system at the current time", request.getOldPostcode()));
+            throw new IllegalStateException(String.format(DATA_NOT_EXIST_EXCEPTION, request.getOldPostcode()));
         }
 
         postCodeLatLng.setPostcode(request.getNewPostcode());
@@ -87,7 +88,7 @@ public class PostcodeManagerService {
     /**
      * Update the latitude and longitude for the requested postcode
      *
-     * @param request
+     * @param request PostcodeLatLongUpdateRequest object
      */
     public void updateLatLong(PostcodeLatLongUpdateRequest request) {
         if (StringUtils.isEmpty(request.getPostcode())) {
@@ -96,7 +97,7 @@ public class PostcodeManagerService {
 
         PostCodeLatLng postCodeLatLng = postCodeManagerRepository.findByPostcode(request.getPostcode());
         if (postCodeLatLng == null) {
-            throw new IllegalStateException(String.format("Sorry, %s is not on our system at the current time", request.getPostcode()));
+            throw new IllegalStateException(String.format(DATA_NOT_EXIST_EXCEPTION, request.getPostcode()));
         }
 
         postCodeLatLng.setLatitude(request.getNewLatitude());

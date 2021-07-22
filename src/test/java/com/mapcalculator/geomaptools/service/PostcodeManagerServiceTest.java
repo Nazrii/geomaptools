@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(value = PostcodeManagerService.class)
-public class PostcodeManagerServiceTest {
+class PostcodeManagerServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class PostcodeManagerServiceTest {
     @Test
     @DisplayName("getPostcodeById success")
     void getPostcodeById_Success() {
-        Long id = 1l;
+        Long id = 1L;
 
         postCodeLatLng.setId(1);
         postCodeLatLng.setPostcode("AB10 1XG");
@@ -55,7 +55,7 @@ public class PostcodeManagerServiceTest {
     @Test
     @DisplayName("getPostcodeById fail illegal state exception when id not exist")
     void getPostcodeById_NotExist_IllegalStateException() {
-        Long id = 1l;
+        Long id = 1L;
 
         assertThatThrownBy(() -> postcodeManagerService.getPostCodeById(id))
                 .isInstanceOf(IllegalStateException.class)

@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @WithMockUser(setupBefore = TestExecutionEvent.TEST_EXECUTION)
-public class DistanceControllerTest {
+class DistanceControllerTest {
 
     private static final String requestJson = "{\"from_postcode\" : \"AB10 1XG\",\"to_postcode\" : \"AB10 6RN\"}";
 

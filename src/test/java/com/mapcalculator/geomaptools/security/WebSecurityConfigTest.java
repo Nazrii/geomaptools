@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class WebSecurityConfigTest {
+class WebSecurityConfigTest {
 
     private PostcodeManagerResponse response;
 
@@ -32,7 +32,7 @@ public class WebSecurityConfigTest {
     @BeforeEach
     void setUp(){
         response = new PostcodeManagerResponse();
-        response.setId(1l);
+        response.setId(1L);
         response.setPostcode("AB10 1XG");
         response.setLatitude(57.144165);
         response.setLongitude(-2.114848);
@@ -42,7 +42,7 @@ public class WebSecurityConfigTest {
     @Test
     @DisplayName("getPostcodeByID success")
     void testGetPostcodeById_Success() throws Exception {
-        Long id = 1l;
+        Long id = 1L;
 
         when(postcodeManagerService.getPostCodeById(id)).thenReturn(response);
 
@@ -55,7 +55,7 @@ public class WebSecurityConfigTest {
     @Test
     @DisplayName("getPostcodeByID fail unauthorized when no user and password set")
     void testGetPostcodeById_NoUserPassword_Unauthorized() throws Exception {
-        Long id = 1l;
+        Long id = 1L;
 
         when(postcodeManagerService.getPostCodeById(id)).thenReturn(response);
 
